@@ -47,9 +47,8 @@ def second_part(data):
 
 if __name__ == '__main__':
     print("--- Day 1: Calorie Counting ---")
-    with open("day1.txt", "r") as f:
-        data = f.read()
-        max_calories = first_part(data)
-        print(f"The Elve carrying most calories has: {max_calories} calories")
-        top_3 = second_part(data)
-        print(f"The top 3 Elve carrying most calories have (in total): {top_3} calories")
+    with open("day1.txt", "r") as f: data = f.read()
+    max_calories = first_part(data)
+    print(f"The Elve carrying most calories has: {max_calories} calories")
+    top_3 = second_part(data)
+    print(f"The top 3 Elve carrying most calories have (in total): {top_3} calories")
