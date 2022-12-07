@@ -20,21 +20,36 @@ with them, one item per line. Each Elf separates their own inventory from the pr
 More details in the puzzle description: https://adventofcode.com/2022/day/1
 """
 
-def main():
-    with open("day1.txt", "r") as f:
-        data = f.read()
-        max_calories = 0
-        actual_calories = 0
-        for line in data.splitlines():
-            if line == "":
-                if actual_calories > max_calories:
-                    max_calories = actual_calories
-                actual_calories = 0
-            else:
-                actual_calories += int(line)
-        return max_calories
+def first_part(data):
+    max_calories = 0
+    actual_calories = 0
+    for line in data.splitlines():
+        if line == "":
+            if actual_calories > max_calories:
+                max_calories = actual_calories
+            actual_calories = 0
+        else:
+            actual_calories += int(line)
+    return max_calories
+
+def second_part(data):
+    top_3 = [0,0,0]
+    actual_calories = 0
+    for line in data.splitlines():
+        if line == "":
+            if actual_calories > min(top_3):
+                top_3.remove(min(top_3))
+                top_3.append(actual_calories)
+            actual_calories = 0
+        else:
+            actual_calories += int(line)
+    return sum(top_3)
+
 if __name__ == '__main__':
     print("--- Day 1: Calorie Counting ---")
-    main()
-    max_calories = main()
-    print(f"Max calories: {max_calories}")
+    with open("day1.txt", "r") as f:
+        data = f.read()
+        max_calories = first_part(data)
+        print(f"The Elve carrying most calories has: {max_calories} calories")
+        top_3 = second_part(data)
+        print(f"The top 3 Elve carrying most calories have (in total): {top_3} calories")
