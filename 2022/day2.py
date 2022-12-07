@@ -25,6 +25,8 @@ the round (0 if you lost, 3 if the round was a draw, and 6 if you won).
 
 Since you can't be sure if the Elf is trying to help you or trick you, you should calculate
 the score you would get if you were to follow the strategy guide.
+
+More details in the puzzle description: https://adventofcode.com/2022/day/2
 """
 
 def first_part(data):
@@ -40,9 +42,22 @@ def first_part(data):
     return score
 
 
+def second_part(data):
+    score_info = {
+        "A": {"X": 3+0, "Y": 1+3, "Z": 2+6},
+        "B": {"X": 1+0, "Y": 2+3, "Z": 3+6},
+        "C": {"X": 2+0, "Y": 3+3, "Z": 1+6}
+    }
+    score = 0
+    for line in data.splitlines():
+        opponent, decision = line.split()
+        score += score_info[opponent][decision]
+    return score
 
 if __name__ == '__main__':
     print("--- Day 2: Rock Paper Scissors ---")
     with open("day2.txt", "r") as f: data = f.read()
     score = first_part(data)
-    print(f"My total score is: {score}")
+    print(f"My total score following first strategy is: {score}")
+    score = second_part(data)
+    print(f"My total score following second strategy is: {score}")
