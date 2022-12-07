@@ -21,7 +21,20 @@ More details in the puzzle description: https://adventofcode.com/2022/day/1
 """
 
 def main():
-    print("--- Day 1: Calorie Counting ---")
-
+    with open("day1.txt", "r") as f:
+        data = f.read()
+        max_calories = 0
+        actual_calories = 0
+        for line in data.splitlines():
+            if line == "":
+                if actual_calories > max_calories:
+                    max_calories = actual_calories
+                actual_calories = 0
+            else:
+                actual_calories += int(line)
+        return max_calories
 if __name__ == '__main__':
+    print("--- Day 1: Calorie Counting ---")
     main()
+    max_calories = main()
+    print(f"Max calories: {max_calories}")
