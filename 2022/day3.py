@@ -29,7 +29,21 @@ def first_part(data):
         priorities_sum += priorities[letter]
     return priorities_sum
 
+def second_part(data):
+    priorities_sum = 0
+    i = 0
+    data = data.splitlines()
+    while i < len(data):
+        first_elve = set(data[i])
+        second_elve = set(data[i+1])
+        third_elve =   set(data[i+2])
+        badge = first_elve.intersection(second_elve).intersection(third_elve).pop()
+        priorities_sum += priorities[badge]
+        i += 3
+    return priorities_sum
+
 if __name__ == '__main__':
     print("--- Day 3: Rucksack Reorganization ---")
     with open("day3.txt", "r") as f: data = f.read()
     print("First part:", first_part(data))
+    print("Second part:", second_part(data))
