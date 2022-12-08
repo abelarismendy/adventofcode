@@ -15,7 +15,6 @@ soon as possible so they can embark.
 
 More details in the puzzle description: https://adventofcode.com/2022/day/5
 """
-import numpy as np
 
 def interprete_stacks(data):
     data = data.splitlines()
@@ -25,7 +24,7 @@ def interprete_stacks(data):
         if line[1] == "1":
             for i, stack in stacks.items():
                 stacks[i] = stack[::-1]
-            return stacks, data[i+2:]
+            return stacks, data[i+1:]
         for j in range(n_stacks):
             if j == 0:
                 letter = line[1]
@@ -38,23 +37,21 @@ def interprete_stacks(data):
 
 def first_part(stacks,data):
     for op in data:
-        __, n, __, inp, __, out = op.split()
+        _, n, _, from_stack, _, to_stack = op.split()
         n = int(n)
-        inp = int(inp)
-        out = int(out)
-        # print(op)
-        for i in range(n-1):
-            # print(i)
-            # print(stacks[inp], stacks[out])
-            if len(stacks[inp]) > 0:
-                print(f"move {stacks[inp][-1]} from {inp} to {out}")
-                stacks[out].append(stacks[inp].pop())
-            # print(stacks[inp], stacks[out])
-        # break
+        from_stack = int(from_stack)
+        to_stack = int(to_stack)
+        print(stacks)
+        print("#"*20)
+        print(op)
+        while n > 0:
+            print(f"move {stacks[from_stack][-1]} from {from_stack} to {to_stack}")
+            stacks[to_stack].append(stacks[from_stack].pop())
+            n -= 1
     respone = ""
-    print(stacks)
+    # print(stacks)
     for stack in stacks.values():
-        respone += stack[-1]
+        respone += stack.pop()
     return respone
 
 def second_part(stacks,data):
@@ -65,6 +62,6 @@ if __name__ == '__main__':
     print("--- Day 5: Supply Stacks ---")
     with open("day5.txt", "r") as f: data = f.read()
     stacks, data = interprete_stacks(data)
-    print(stacks)
+    # print(stacks)
     print("First part:", first_part(stacks,data))
     print("Second part:", second_part(stacks,data))
