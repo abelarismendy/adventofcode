@@ -26,14 +26,22 @@ def first_part(data):
 
         if first_range.issubset(second_range) or second_range.issubset(first_range):
             incorrect += 1
-
-
-
     return incorrect
 
-
 def second_part(data):
-    pass
+    incorrect = 0
+    data = data.splitlines()
+    for pair in data:
+        first_elve, second_elve = pair.split(",")
+        first_elve_s, first_elve_e = first_elve.split("-")
+        second_elve_s, second_elve_e = second_elve.split("-")
+
+        first_range = set(np.arange(int(first_elve_s), int(first_elve_e)+1))
+        second_range = set(np.arange(int(second_elve_s), int(second_elve_e)+1))
+
+        if first_range.intersection(second_range):
+            incorrect += 1
+    return incorrect
 
 if __name__ == '__main__':
     print("--- Day 4: Camp Cleanup ---")
