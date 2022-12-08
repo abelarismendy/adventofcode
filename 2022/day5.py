@@ -36,27 +36,48 @@ def interprete_stacks(data):
                 stacks[j+1].append(letter)
 
 def first_part(stacks,data):
+    temp_stacks = {i+1:stacks[i+1].copy() for i in range(len(stacks))}
     for op in data:
         _, n, _, from_stack, _, to_stack = op.split()
         n = int(n)
         from_stack = int(from_stack)
         to_stack = int(to_stack)
-        print(stacks)
-        print("#"*20)
-        print(op)
+        # print(temp_stacks)
+        # print("#"*20)
+        # print(op)
         while n > 0:
-            print(f"move {stacks[from_stack][-1]} from {from_stack} to {to_stack}")
-            stacks[to_stack].append(stacks[from_stack].pop())
+            # print(f"move {temp_stacks[from_stack][-1]} from {from_stack} to {to_stack}")
+            temp_stacks[to_stack].append(temp_stacks[from_stack].pop())
             n -= 1
     respone = ""
     # print(stacks)
-    for stack in stacks.values():
+    for stack in temp_stacks.values():
         respone += stack.pop()
     return respone
 
 def second_part(stacks,data):
-    incorrect = 0
-    return incorrect
+    temp_stacks = {i+1:stacks[i+1].copy() for i in range(len(stacks))}
+    for op in data:
+        _, n, _, from_stack, _, to_stack = op.split()
+        n = int(n)
+        from_stack = int(from_stack)
+        to_stack = int(to_stack)
+        # print(temp_stacks)
+        # print("#"*20)
+        # print(op)
+        temp = []
+        while n > 0:
+            # print(f"move {stacks[from_stack][-1]} from {from_stack} to {to_stack}")
+            temp.append(temp_stacks[from_stack].pop())
+            n -= 1
+        temp = temp[::-1]
+        # print(temp)
+        temp_stacks[to_stack] += temp
+    respone = ""
+    # print(stacks)
+    for stack in temp_stacks.values():
+        respone += stack.pop()
+    return respone
 
 if __name__ == '__main__':
     print("--- Day 5: Supply Stacks ---")
