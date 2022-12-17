@@ -28,16 +28,17 @@ of the first such four-character marker.
 More details in the puzzle description: https://adventofcode.com/2022/day/6
 """
 
-def first_part(data):
+def alogrithm(data, n):
     i = 0
-    while i < len(data)-3:
-        chars = data[i:i+4]
-        if len(set(chars)) == 4:
-            return i+4
+    while i < len(data)-(n-1):
+        chars = data[i:i+n]
+        if len(set(chars)) == n:
+            return i+n
         i += 1
 
 if __name__ == '__main__':
     print("--- Day 6: Tuning Trouble ---")
     with open("day6.txt", "r") as f: data = f.read()
     # data = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
-    print("First part:", first_part(data))
+    print("First part:", alogrithm(data, 4))
+    print("Second part:", alogrithm(data, 14))
