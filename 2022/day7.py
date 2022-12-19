@@ -133,6 +133,7 @@ def second_part(checked_routes):
     return menor
 
 if __name__ == "__main__":
+    print("--- Day 7: No Space Left On Device ---")
     with open("input/day7.txt") as f: data = f.read()
     comandos = parsear(data)
     directorios, saved_routes = crear_archivos(comandos)
