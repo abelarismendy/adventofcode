@@ -69,15 +69,53 @@ def crear_archivos(comandos):
                 if tipo == "dir":
                     if nombre not in directorio_actual:
                         directorio_actual[nombre] = {}
+                        saved_routes.append(route + nombre + "/")
                 else:
                     directorio_actual[nombre] = tipo
-    return directorios
+    return directorios, saved_routes
 
-def second_part(data):
+def first_part(directorios, saved_routes):
+    # find all of the directories with a total size of at most 100000
+    size_limit = 100000
+    routes_to_check = []
+    for route in saved_routes:
+        actual_route = route.split("/")
+        actual_route = [x for x in actual_route if x != ""]
+        routes_to_check.append(actual_route)
+    routes_to_check.sort(key=len, reverse=True)
+    checked_routes = {}
+
+    for route in routes_to_check:
+        directorio_actual = directorios
+        for i in range(len(route)):
+            nombre_carpeta = route[i]
+            directorio_actual = directorio_actual[nombre_carpeta]
+        size = 0
+        # print(route)
+        for nombre, peso in directorio_actual.items():
+            if isinstance(peso, dict):
+                route_actual_check = "/".join(route+[nombre])
+                if route_actual_check in checked_routes:
+                    size += checked_routes[route_actual_check]
+            else:
+                size += int(peso)
+        route_actual = "/".join(route)
+        checked_routes[route_actual] = size
+    checked_routes['/'] = sum(checked_routes.values())
+
+    suma_total = 0
+
+    for route, size in checked_routes.items():
+        if size <= size_limit:
+            # print(route, size)
+            suma_total += size
+    return suma_total
+
+def second_part(directorios):
     pass
 
 if __name__ == "__main__":
-    with open("example/day7.txt") as f: data = f.read()
+    with open("input/day7.txt") as f: data = f.read()
     comandos = parsear(data)
-    directorios = crear_archivos(comandos)
-    print(directorios)
+    directorios, saved_routes = crear_archivos(comandos)
+    print("First part: ", first_part(directorios, saved_routes))
