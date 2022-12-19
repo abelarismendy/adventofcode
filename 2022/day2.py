@@ -56,7 +56,7 @@ def second_part(data):
 
 if __name__ == '__main__':
     print("--- Day 2: Rock Paper Scissors ---")
-    with open("day2.txt", "r") as f: data = f.read()
+    with open("input/day2.txt", "r") as f: data = f.read()
     score = first_part(data)
     print(f"My total score following first strategy is: {score}")
     score = second_part(data)

@@ -44,6 +44,6 @@ def second_part(data):
 
 if __name__ == '__main__':
     print("--- Day 3: Rucksack Reorganization ---")
-    with open("day3.txt", "r") as f: data = f.read()
+    with open("input/day3.txt", "r") as f: data = f.read()
     print("First part:", first_part(data))
     print("Second part:", second_part(data))

@@ -38,7 +38,7 @@ def alogrithm(data, n):
 
 if __name__ == '__main__':
     print("--- Day 6: Tuning Trouble ---")
-    with open("day6.txt", "r") as f: data = f.read()
+    with open("input/day6.txt", "r") as f: data = f.read()
     # data = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
     print("First part:", alogrithm(data, 4))
     print("Second part:", alogrithm(data, 14))

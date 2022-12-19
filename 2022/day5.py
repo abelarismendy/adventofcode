@@ -81,7 +81,7 @@ def second_part(stacks,data):
 
 if __name__ == '__main__':
     print("--- Day 5: Supply Stacks ---")
-    with open("day5.txt", "r") as f: data = f.read()
+    with open("input/day5.txt", "r") as f: data = f.read()
     stacks, data = interprete_stacks(data)
     # print(stacks)
     print("First part:", first_part(stacks,data))
