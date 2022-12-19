@@ -57,8 +57,20 @@ def crear_archivos(comandos):
                             directorio_actual = directorio_actual[nombre_carpeta]
 
         elif comando == 'ls':
-            pass
-
+            # acceder a la ruta actual
+            actual_route = route.split("/")
+            actual_route = [x for x in actual_route if x != ""]
+            directorio_actual = directorios
+            for i in range(len(actual_route)):
+                nombre_carpeta = actual_route[i]
+                directorio_actual = directorio_actual[nombre_carpeta]
+            for archivo_carpeta in resultado:
+                tipo, nombre = archivo_carpeta.split(" ")
+                if tipo == "dir":
+                    if nombre not in directorio_actual:
+                        directorio_actual[nombre] = {}
+                else:
+                    directorio_actual[nombre] = tipo
     return directorios
 
 def second_part(data):
