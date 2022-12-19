@@ -11,6 +11,8 @@ looking directly along a row or column.
 More details in the puzzle description: https://adventofcode.com/2022/day/8
 """
 
+import math
+
 def input_to_matrix(data):
     data = data.splitlines()
     matrix = []
@@ -67,10 +69,45 @@ def first_part(matrix):
                 count += 1
     return count
 
-
-
-def second_part(data):
-    pass
+def second_part(matrix):
+    max_score = 0
+    for i in range(1, len(matrix)-1):
+        for j in range(1, len(matrix[i])-1):
+            tree = matrix[i][j]
+            x, y = i, j
+            # Check if the current tree is visible horizontally to the right
+            visibility = [0,0,0,0]
+            while j < len(matrix[i])-1:
+                j+=1
+                visibility[0]+=1
+                if tree <= matrix[i][j]:
+                    break
+            j = y
+            # Check if the current tree is visible horizontally to the left
+            while j > 0:
+                j-=1
+                visibility[1]+=1
+                if tree <= matrix[i][j]:
+                    break
+            j = y
+            # Check if the current tree is visible vertically to the top
+            while i > 0:
+                i-=1
+                visibility[2]+=1
+                if tree <= matrix[i][j]:
+                    break
+            i = x
+            # Check if the current tree is visible vertically to the bottom
+            while i < len(matrix) - 1:
+                i+=1
+                visibility[3]+=1
+                if tree <= matrix[i][j]:
+                    break
+            i = x
+            score = math.prod(visibility)
+            if score > max_score:
+                max_score = score
+    return max_score
 
 if __name__ == "__main__":
     with open("input/day8.txt", "r") as f:
