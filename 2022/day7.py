@@ -101,7 +101,13 @@ def first_part(directorios, saved_routes):
                 size += int(peso)
         route_actual = "/".join(route)
         checked_routes[route_actual] = size
-    checked_routes['/'] = sum(checked_routes.values())
+
+    checked_routes['/'] = 0
+    for a,b in directorios.items():
+        if not isinstance(b, dict):
+            checked_routes['/'] += int(b)
+        else:
+            checked_routes['/'] += checked_routes[a]
 
     suma_total = 0
 
@@ -109,13 +115,28 @@ def first_part(directorios, saved_routes):
         if size <= size_limit:
             # print(route, size)
             suma_total += size
-    return suma_total
+    return suma_total, checked_routes
 
-def second_part(directorios):
-    pass
+def second_part(checked_routes):
+    # print(checked_routes)
+    total_disk_size = 70000000
+    space_needed = 30000000
+    space_available = total_disk_size - checked_routes['/']
+    space_to_delete = abs(space_available - space_needed)
+    menor = total_disk_size
+    for route, size in checked_routes.items():
+        if size >= space_to_delete:
+            if size < menor:
+                menor = size
+                ruta = route
+    # print(ruta)
+    return menor
 
 if __name__ == "__main__":
     with open("input/day7.txt") as f: data = f.read()
     comandos = parsear(data)
     directorios, saved_routes = crear_archivos(comandos)
-    print("First part: ", first_part(directorios, saved_routes))
+    first, checked_routes = first_part(directorios, saved_routes)
+    print("First part: ", first)
+    second = second_part(checked_routes)
+    print("Second part: ", second)
