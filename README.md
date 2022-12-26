@@ -14,6 +14,3 @@ Where `ext` is the file extension of the language used for the solution (e.g. `p
 
 If you have a better solution or find an issue with one of my solutions, feel free to open a pull request or issue.
 
-## License
-
-All solutions in this repository are licensed under the MIT License. See [LICENSE](LICENSE) for more information.
